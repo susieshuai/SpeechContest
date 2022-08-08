@@ -4,6 +4,12 @@
 
 # Concepts
 - STL
+    - Containers: vector, map, multimap, deque
+    - Algorithms
+        - Algorithm: random_shuffle, sort
+        - Numeric: accumulate
+    - Functions
+    - Iterators
 - OOD
 - Polymorphism
 - I/O
