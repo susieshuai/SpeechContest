@@ -3,6 +3,7 @@
 // 构造函数
 SpeechManager::SpeechManager()
 {
+    this->initSpeech();
 }
 
 // 展示菜单
@@ -23,6 +24,18 @@ void SpeechManager::exitSystem()
 {
     cout << "欢迎下次使用！" << endl;
     exit(0);
+}
+
+// 初始化属性
+void SpeechManager::initSpeech()
+{
+    // 容器置空
+    this->round1.clear();
+    this->round2.clear();
+    this->winners.clear();
+    this->speakers.clear();
+    // 第一轮
+    this->round = 1;
 }
 
 // 析构函数

@@ -1,6 +1,9 @@
 #pragma once
 #include <iostream>
 using namespace std;
+#include <vector>
+#include <map>
+#include "speaker.h"
 
 /*
 设计演讲管理类
@@ -21,6 +24,21 @@ public:
     // 退出系统
     void exitSystem();
 
+    // 初始化属性
+    void initSpeech();
+
     // 析构函数
     ~SpeechManager();
+
+    // 成员属性
+    // 第一轮选手编号 12人
+    vector<int> round1;
+    // 第二轮选手编号 6人
+    vector<int> round2;
+    // 胜出选手 3人
+    vector<int> winners;
+    // 编号-选手表
+    map<int, Speaker> speakers;
+    // 第几轮
+    int round;
 };
