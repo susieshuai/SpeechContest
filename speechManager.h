@@ -8,6 +8,7 @@ using namespace std;
 #include <deque>
 #include <functional>
 #include <numeric>
+#include <fstream>
 
 /*
 设计演讲管理类
@@ -45,6 +46,9 @@ public:
 
     // 显示比赛结果
     void showScore();
+
+    // 保存比赛结果
+    void saveRecord();
 
     // 析构函数
     ~SpeechManager();

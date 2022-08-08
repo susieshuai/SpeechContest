@@ -82,6 +82,9 @@ void SpeechManager::startSpeech()
     // 2.3 显示比赛结果
     this->showScore();
     // 2.4 保存结果至文件
+    this->saveRecord();
+
+    cout << "本届比赛结束" << endl;
 }
 
 // 抽签
@@ -233,6 +236,23 @@ void SpeechManager::showScore()
              << endl;
     }
     cout << endl;
+}
+
+// 保存比赛结果
+void SpeechManager::saveRecord()
+{
+    ofstream ofs;
+    ofs.open("speech.csv", ios::out | ios::app); // 追加方式写文件
+
+    // 写入前三名
+    for (vector<int>::iterator it = this->winners.begin(); it != this->winners.end(); it++)
+    {
+        ofs << *it << "," << this->speakers[*it].score[1] << ",";
+    }
+    ofs << endl;
+
+    ofs.close();
+    cout << "记录保存成功" << endl;
 }
 
 // 析构函数
