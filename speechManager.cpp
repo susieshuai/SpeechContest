@@ -289,12 +289,52 @@ void SpeechManager::loadRecord()
     ifs.putback(c); // 将上面读取的单个字符再放回来
 
     string data;
+    int index = 0;
+
     while (ifs >> data)
     {
-        cout << data << endl;
+        // cout << data << endl;
+        // 10005,83.6125,10007,82.7375,10008,80.725,
+        vector<string> v; // 临时存放一届的数据
+
+        int pos = -1; // 查到”，“位置的变量
+        int start = 0;
+
+        while (true)
+        {
+            pos = data.find(",", start);
+            if (pos == -1)
+            {
+                break;
+            }
+            string temp = data.substr(start, pos - start);
+            v.push_back(temp);
+            start = pos + 1;
+        }
+
+        this->record.insert(make_pair(index, v));
+        index++;
     }
 
     ifs.close();
+
+    // 测试结果map数据
+    // for (map<int, vector<string>>::iterator it = this->record.begin(); it != this->record.end(); it++)
+    // {
+    //     cout << it->first << "冠军编号" << it->second[0] << endl;
+    // }
+}
+
+// 显示记录
+void SpeechManager::showRecord()
+{
+    for (int i = 0; i < this->record.size(); i++)
+    {
+        cout << "第" << i + 1 << "届" << endl;
+        cout << "冠军编号：" << this->record[i][0] << "\t成绩：" << this->record[i][1] << endl;
+        cout << "亚军编号：" << this->record[i][2] << "\t成绩：" << this->record[i][3] << endl;
+        cout << "季军编号：" << this->record[i][4] << "\t成绩：" << this->record[i][5] << endl;
+    }
 }
 
 // 析构函数

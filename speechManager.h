@@ -53,6 +53,9 @@ public:
     // 读取记录
     void loadRecord();
 
+    // 显示记录
+    void showRecord();
+
     // 析构函数
     ~SpeechManager();
 
