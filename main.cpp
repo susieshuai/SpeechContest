@@ -36,7 +36,7 @@ int main()
             break;
 
         case 1: // 开始比赛
-            /* code */
+            sm.startSpeech();
             break;
 
         case 2: // 往届记录

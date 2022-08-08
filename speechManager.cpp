@@ -56,9 +56,51 @@ void SpeechManager::createSpeaker()
         speaker.score[1] = 0;
 
         // 加入选手名单
-        this->speakers.insert(make_pair(i + 10000, speaker));
+        this->speakers.insert(make_pair(i + 10001, speaker));
         // 加入第一轮编号
-        this->round1.push_back(i + 10000);
+        this->round1.push_back(i + 10001);
+    }
+}
+
+// 开始比赛
+void SpeechManager::startSpeech()
+{
+    // 第一轮
+    // 1.1 抽签
+    this->speechDraw();
+    // 1.2 比赛
+    // 1.3 显示晋级结果
+
+    // 第二轮
+    // 2.1 抽签
+    // 2.2 比赛
+    // 2.3 显示比赛结果
+    // 2.4 保存结果至文件
+}
+
+// 抽签
+void SpeechManager::speechDraw()
+{
+    cout << "第" << this->round << "轮的选手正在抽签" << endl;
+    cout << "顺序如下：" << endl;
+
+    if (this->round == 1)
+    {
+        random_shuffle(this->round1.begin(), this->round1.end());
+        for (vector<int>::iterator it = this->round1.begin(); it != this->round1.end(); it++)
+        {
+            cout << *it << " ";
+        }
+        cout << endl;
+    }
+    else
+    {
+        random_shuffle(this->round2.begin(), this->round2.end());
+        for (vector<int>::iterator it = this->round2.begin(); it != this->round2.end(); it++)
+        {
+            cout << *it << " ";
+        }
+        cout << endl;
     }
 }
 
