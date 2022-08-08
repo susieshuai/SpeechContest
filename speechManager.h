@@ -50,6 +50,9 @@ public:
     // 保存比赛结果
     void saveRecord();
 
+    // 读取记录
+    void loadRecord();
+
     // 析构函数
     ~SpeechManager();
 
@@ -64,4 +67,11 @@ public:
     map<int, Speaker> speakers;
     // 第几轮
     int round;
+
+    // 判断文件是否为空
+    bool fileIsEmpty;
+
+    // 往届记录
+    // >> 编译问题：指定新版本，如-std=c++11
+    map<int, vector<string>> record;
 };

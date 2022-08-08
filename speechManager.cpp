@@ -3,8 +3,12 @@
 // 构造函数
 SpeechManager::SpeechManager()
 {
+    // 初始化容器和属性
     this->initSpeech();
+    // 创建12个选手
     this->createSpeaker();
+    // 加载往届记录
+    this->loadRecord();
 }
 
 // 展示菜单
@@ -253,6 +257,44 @@ void SpeechManager::saveRecord()
 
     ofs.close();
     cout << "记录保存成功" << endl;
+}
+
+// 读取记录
+void SpeechManager::loadRecord()
+{
+    ifstream ifs("speech.csv", ios::in);
+
+    // 文件不存在
+    if (!ifs.is_open())
+    {
+        this->fileIsEmpty = true;
+        cout << "文件不存在" << endl;
+        ifs.close();
+        return;
+    }
+
+    // 文件为空
+    char c;
+    ifs >> c;
+    if (ifs.eof())
+    {
+        this->fileIsEmpty = true;
+        cout << "文件为空" << endl;
+        ifs.close();
+        return;
+    }
+
+    // 读文件
+    this->fileIsEmpty = false;
+    ifs.putback(c); // 将上面读取的单个字符再放回来
+
+    string data;
+    while (ifs >> data)
+    {
+        cout << data << endl;
+    }
+
+    ifs.close();
 }
 
 // 析构函数

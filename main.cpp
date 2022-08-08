@@ -40,7 +40,7 @@ int main()
             break;
 
         case 2: // 往届记录
-            /* code */
+            sm.loadRecord();
             break;
 
         case 3: // 清空记录
