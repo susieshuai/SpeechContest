@@ -71,6 +71,7 @@ void SpeechManager::startSpeech()
     // 1.2 比赛
     this->speechContest();
     // 1.3 显示晋级结果
+    this->showScore();
 
     // 第二轮
     // 2.1 抽签
@@ -203,6 +204,32 @@ void SpeechManager::speechContest()
         }
     }
     cout << "第" << this->round << "轮比赛结束" << endl;
+}
+
+// 显示比赛结果
+void SpeechManager::showScore()
+{
+    cout << "第" << this->round << "轮晋级选手信息：" << endl;
+
+    vector<int> v;
+    if (this->round == 1)
+    {
+        v = round2;
+    }
+    else
+    {
+        v = winners;
+    }
+
+    for (vector<int>::iterator it = v.begin(); it != v.end(); it++)
+    {
+        cout << "编号：" << *it
+             << "\t姓名：" << this->speakers[*it].name
+             << "\t成绩：" << this->speakers[*it].score[this->round - 1]
+             << endl;
+    }
+    cout << endl;
+    this->showMenu();
 }
 
 // 析构函数
