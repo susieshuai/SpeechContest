@@ -4,7 +4,7 @@
 
 # Concepts
 - STL
-    - Containers: vector, map, multimap, deque
+    - Containers: string, vector, map, multimap, deque
     - Algorithms
         - Algorithm: random_shuffle, sort
         - Numeric: accumulate

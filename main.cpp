@@ -48,7 +48,7 @@ int main()
             break;
 
         case 3: // 清空记录
-            /* code */
+            sm.clearRecord();
             break;
 
         default:
