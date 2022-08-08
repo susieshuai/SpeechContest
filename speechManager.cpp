@@ -69,6 +69,7 @@ void SpeechManager::startSpeech()
     // 1.1 抽签
     this->speechDraw();
     // 1.2 比赛
+    this->speechContest();
     // 1.3 显示晋级结果
 
     // 第二轮
@@ -102,6 +103,106 @@ void SpeechManager::speechDraw()
         }
         cout << endl;
     }
+}
+
+class MyCompare
+{
+public:
+    bool operator()(double d1, double d2) const
+    {
+        return d1 > d2;
+    }
+};
+
+// 比赛
+void SpeechManager::speechContest()
+{
+    cout << "第" << this->round << "轮比赛正式开始" << endl;
+
+    // 准备一个临时容器存放小组成绩
+    multimap<double, int, MyCompare> tempGroupScores;
+    /*
+    1. 这里的greater<double>是模板声明类型，不加括号；而sort中的greater<double>()是对象，要加括号。
+    2. >>之间一定要加括号，不然报错，但是vscode会自动修正，所以自定义了一个仿函数来实现降序排列。
+    */
+    // multimap<double, int, greater<double>> tempGroupScores;
+
+    // 统计已演讲的人数
+    int cnt = 0;
+
+    // 当前比赛人员
+    vector<int> curSpeakers;
+    if (this->round == 1)
+    {
+        curSpeakers = round1;
+    }
+    else
+    {
+        curSpeakers = round2;
+    }
+
+    // 遍历所有选手编号进行比赛
+    for (vector<int>::iterator it = curSpeakers.begin(); it != curSpeakers.end(); it++)
+    {
+        cnt++;
+        // 10个评委打分
+        deque<double> scores;
+        for (int i = 0; i < 10; i++)
+        {
+            double score = (rand() % 401 + 600) / 10.f; // [600, 1000]小数
+            // cout << score << " ";
+            scores.push_back(score);
+        }
+        // cout << endl;
+
+        // 从大到小排序
+        sort(scores.begin(), scores.end(), greater<double>());
+        scores.pop_front();
+        scores.pop_back();
+
+        double sum = accumulate(scores.begin(), scores.end(), 0.0f);
+        double avg = sum / (double)scores.size();
+
+        // 将平均分放入map里
+        this->speakers[*it].score[this->round - 1] = avg;
+
+        // 打印每个选手成绩
+        // cout << "编号：" << *it << "\t姓名：" << this->speakers[*it].name << "\t成绩：" << avg << endl;
+
+        // 将数据放入临时容器中
+        tempGroupScores.insert(make_pair(avg, *it));
+
+        // 每六个人取出前三名
+        if (cnt % 6 == 0)
+        {
+            cout << "第" << cnt / 6 << "小组名次：" << endl;
+            for (multimap<double, int, MyCompare>::iterator it = tempGroupScores.begin(); it != tempGroupScores.end(); it++)
+            {
+                cout << "编号：" << it->second
+                     << "\t姓名：" << this->speakers[it->second].name
+                     << "\t成绩：" << this->speakers[it->second].score[this->round - 1]
+                     << endl;
+            }
+
+            // 取走前三名放入下一个容器中
+            int n = 0;
+            for (multimap<double, int, MyCompare>::iterator it = tempGroupScores.begin(); it != tempGroupScores.end() && n < 3; it++, n++)
+            {
+                if (this->round == 1)
+                {
+                    round2.push_back(it->second);
+                }
+                else
+                {
+                    winners.push_back(it->second);
+                }
+            }
+
+            // 一组比完了，小组容器要清空
+            tempGroupScores.clear();
+        }
+    }
+    cout << "第" << this->round << "轮比赛结束" << endl;
 }
 
 // 析构函数

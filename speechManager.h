@@ -5,6 +5,9 @@ using namespace std;
 #include <map>
 #include "speaker.h"
 #include <algorithm>
+#include <deque>
+#include <functional>
+#include <numeric>
 
 /*
 设计演讲管理类
@@ -36,6 +39,9 @@ public:
 
     // 抽签
     void speechDraw();
+
+    // 比赛
+    void speechContest();
 
     // 析构函数
     ~SpeechManager();
