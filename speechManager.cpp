@@ -18,6 +18,13 @@ void SpeechManager::showMenu()
     cout << endl;
 }
 
+// 退出系统
+void SpeechManager::exitSystem()
+{
+    cout << "欢迎下次使用！" << endl;
+    exit(0);
+}
+
 // 析构函数
 SpeechManager::~SpeechManager()
 {
