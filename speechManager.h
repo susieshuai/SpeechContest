@@ -27,6 +27,9 @@ public:
     // 初始化属性
     void initSpeech();
 
+    // 创建12个选手
+    void createSpeaker();
+
     // 析构函数
     ~SpeechManager();
 
