@@ -41,6 +41,8 @@ void SpeechManager::initSpeech()
     this->speakers.clear();
     // 第一轮
     this->round = 1;
+    // 将用来装往届记录的容器也清空
+    this->record.clear();
 }
 
 // 创建选手
@@ -87,6 +89,14 @@ void SpeechManager::startSpeech()
     this->showScore();
     // 2.4 保存结果至文件
     this->saveRecord();
+
+    // 重置比赛并获取记录
+    // 初始化容器和属性
+    this->initSpeech();
+    // 创建12个选手
+    this->createSpeaker();
+    // 加载往届记录
+    this->loadRecord();
 
     cout << "本届比赛结束" << endl;
 }
@@ -257,6 +267,9 @@ void SpeechManager::saveRecord()
 
     ofs.close();
     cout << "记录保存成功" << endl;
+
+    // 文件已有记录，更新状态
+    this->fileIsEmpty = false;
 }
 
 // 读取记录
@@ -268,7 +281,7 @@ void SpeechManager::loadRecord()
     if (!ifs.is_open())
     {
         this->fileIsEmpty = true;
-        cout << "文件不存在" << endl;
+        // cout << "文件不存在" << endl;
         ifs.close();
         return;
     }
@@ -279,7 +292,7 @@ void SpeechManager::loadRecord()
     if (ifs.eof())
     {
         this->fileIsEmpty = true;
-        cout << "文件为空" << endl;
+        // cout << "文件为空" << endl;
         ifs.close();
         return;
     }
@@ -328,12 +341,19 @@ void SpeechManager::loadRecord()
 // 显示记录
 void SpeechManager::showRecord()
 {
-    for (int i = 0; i < this->record.size(); i++)
+    if (this->fileIsEmpty == true)
     {
-        cout << "第" << i + 1 << "届" << endl;
-        cout << "冠军编号：" << this->record[i][0] << "\t成绩：" << this->record[i][1] << endl;
-        cout << "亚军编号：" << this->record[i][2] << "\t成绩：" << this->record[i][3] << endl;
-        cout << "季军编号：" << this->record[i][4] << "\t成绩：" << this->record[i][5] << endl;
+        cout << "文件不存在或为空" << endl;
+    }
+    else
+    {
+        for (int i = 0; i < this->record.size(); i++)
+        {
+            cout << "第" << i + 1 << "届" << endl;
+            cout << "冠军编号：" << this->record[i][0] << "\t成绩：" << this->record[i][1] << endl;
+            cout << "亚军编号：" << this->record[i][2] << "\t成绩：" << this->record[i][3] << endl;
+            cout << "季军编号：" << this->record[i][4] << "\t成绩：" << this->record[i][5] << endl;
+        }
     }
 }
 

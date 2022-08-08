@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 #include "speechManager.h"
+#include <ctime>
 
 // 测试打印12名选手
 void test01(map<int, Speaker> &speakers)
@@ -16,6 +17,9 @@ void test01(map<int, Speaker> &speakers)
 
 int main()
 {
+    // 添加随机数种子
+    srand((unsigned int)time(NULL));
+
     // 创建管理类对象
     SpeechManager sm;
 
