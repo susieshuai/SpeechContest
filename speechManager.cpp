@@ -74,9 +74,13 @@ void SpeechManager::startSpeech()
     this->showScore();
 
     // 第二轮
+    this->round++;
     // 2.1 抽签
+    this->speechDraw();
     // 2.2 比赛
+    this->speechContest();
     // 2.3 显示比赛结果
+    this->showScore();
     // 2.4 保存结果至文件
 }
 
@@ -229,7 +233,6 @@ void SpeechManager::showScore()
              << endl;
     }
     cout << endl;
-    this->showMenu();
 }
 
 // 析构函数
